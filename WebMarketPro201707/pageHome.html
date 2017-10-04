@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=0.4 user-scalable=no"/>
+	<title>首页</title>
+	<script src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/mySwiper.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/home.css">
+	
+</head>
+<body>
+	<div ng-app="myApp1"  ng-controller="myCtrl" class="searchBar"  id="m1">
+		<div class="form-group loginArea" >
+			<form ng-hide="lg_hide">
+				<div class="col-xs-4">
+					<div class="col-md-15">
+						<input class="form-control" type="text" name="" id="lg_usr" maxlength="14" placeholder="账号">
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="col-xs-15">
+						<input class="form-control" type="password" name="" id="lg_psw" maxlength="14" placeholder="密码">
+					</div>
+				</div>
+				<div class="col-xs-15">
+					<input class="btn button-primary" type="button" name="" value="登&nbsp;&nbsp;录">
+					<button class="btn btn-default" data-toggle="modal" data-target="#myModal">注&nbsp;&nbsp;册</button>
+				</div>
+			</form>
+			<center>
+			<button class="button button-royal" ng-click="hidelg()" ng-show="lg_hide">点击此处登录</button></center>
+		</div>
+	</div>
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content bg-ex" id='myWork' ng-controller="myCtrl1">
+				<div class="bg-ex modal-header ">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						<strong>用户注册</strong>
+					</h4>
+				</div>
+				<form name="" method="">
+				<div class="modal-body m-body bg-ex">
+						
+						<div class="form-group has-feedback">
+							<label class="control-label" for="userName">用户名</label>
+							<input type="text" name="un" id="userName" class="form-control" placeholder="用户名" ng-blur="checkUSER();">
+							<span class="notice_info">{{notice.user_n}}</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="password1">密码</label>
+							<input type="password" name="psw1" id="password1" class="form-control" placeholder="密码" ng-blur="checkPSW();">
+							<span class="notice_info">{{notice.psw1_n}}</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="password2">重复密码</label>
+							<input type="password" name="psw2" id="password2" class="form-control" placeholder="重复密码" ng-blur="checkPSW2();">
+							<span class="notice_info">{{notice.psw2_n}}</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="email">邮箱</label>
+							<input type="email" name="em" id="txt_email" class="form-control" placeholder="邮箱" ng-blur="checkEmail();">
+							<span class="notice_info">{{notice.email_n}}</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="phone">手机号码</label>
+							<input type="tel" name="tel" id="phone" class="form-control" placeholder="手机号码" ng-blur="checkTEL();">
+							<span class="notice_info">{{notice.phone_n}}</span>
+						</div>
+						<div class="form-group">
+							<input type="checkbox" id="already" class="check_hide" ng-model="status[5]">
+							<label class="radio_1" for="already">
+								<span class="ra1 ra1_origin"></span>		
+							</label>
+							<span><a href="#">已阅读用户协议并同意</a></span>
+						</div>	
+				</div>
+				<div class="modal-footer bg-ex">
+					<button type="button" id="sign_up" class="btn btn-warning btn-lg" ng-disabled="allowState()">
+						注册
+					</button>
+				</div>
+				</form>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
+	<script>
+		var app1=angular.module("myApp1",[]);
+		var myW=angular.module("myW",[]);
+		app1.controller("myCtrl",function($scope){
+			$scope.lg_hide=true;
+			$scope.hidelg=function(){
+				$scope.lg_hide=false;
+			}
+		});
+
+		$('.radio_1').click(function(){
+			if($('#already')[0].checked==false){
+				$(this).find('.ra1').css({left:21}).removeClass('ra1_origin').addClass('ra1_confirm');
+				// $('#sign_up').attr('disabled',false);
+			}
+			else{
+				$(this).find('.ra1').css({left:1}).removeClass('ra1_confirm').addClass('ra1_origin');
+				// $('#sign_up').attr('disabled',true);
+			}
+		});
+
+		myW.controller("myCtrl1",function($scope,$http){
+			$scope.notice={
+				user_n:" ",psw1_n:" ",psw2_n:" ",email_n:" ",phone_n:" "
+			};			
+			$scope.status=[false,false,false,false,false,false];
+			$scope.allowState=function(){
+				return !($scope.status[0]&&$scope.status[1]&&$scope.status[2]&&$scope.status[3]&&$scope.status[4]&&$scope.status[5]);
+			}
+			$scope.checkUSER=function(){
+				var flag=$('#userName');
+				flag.parent().removeClass('has-error');
+				if(flag.val()==''){
+					$scope.notice.user_n='用户名不能为空';
+					flag.parent().addClass('has-error');
+					$scope.status[0]=false;
+				}
+				else if(!flag.val().match(/^[a-zA-Z]{1,}/)){
+					$scope.notice.user_n='用户名必须以英文字母开头';
+					flag.parent().addClass('has-error');
+					$scope.status[0]=false;
+				}
+				else if(flag.val().length<10){
+					$scope.notice.user_n='用户名不能少于10个字符';
+					flag.parent().addClass('has-error');
+					$scope.status[0]=false;
+				}
+				else{
+					var xmlhttp;
+					if(window.XMLHttpRequest){
+						xmlhttp=new XMLHttpRequest();
+					}else{
+						xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+					}
+					$http.get("/checkUSER?u="+flag.val()).then(function(res){
+						$scope.notice.user_n=res.data;
+						if($scope.notice.user_n!=''){
+							$scope.status[0]=false;
+							flag.parent().addClass('has-error');
+						}else $scope.status[0]=true;								
+					});		
+				}
+			}
+
+			$scope.checkPSW=function(){
+				var flag=$('#password1');
+				flag.parent().removeClass('has-error');
+				if(flag.val()==''){
+					$scope.notice.psw1_n='密码不能为空';
+					flag.parent().addClass('has-error');
+					$scope.status[1]=false;
+				}				
+				else if(!flag.val().match(/^[a-zA-Z]{1,}/)){
+					$scope.notice.psw1_n='密码必须以英文字母开头';
+					flag.parent().addClass('has-error');
+					$scope.status[1]=false;
+				}
+				else if(!flag.val().match(/[0-9]{1,}/)){
+					$scope.notice.psw1_n='密码必须包含数字';
+					flag.parent().addClass('has-error');
+					$scope.status[1]=false;
+				}
+				else{
+					$scope.notice.psw1_n='';
+					$scope.status[1]=true;
+				}
+			}
+
+			$scope.checkPSW2=function(){
+				var flag1=$('#password1');
+				var flag=$('#password2');
+				flag.parent().removeClass('has-error');
+				if(flag.val()==''){
+					$scope.notice.psw2_n='重复密码不能为空';
+					flag.parent().addClass('has-error');
+					$scope.status[2]=false;
+				}
+				else if(flag.val()!=flag1.val()){
+					$scope.notice.psw2_n='两次密码不一致';
+					flag.parent().addClass('has-error');
+					$scope.status[2]=false;
+				}
+				else{
+					$scope.notice.psw2_n='';
+					$scope.status[2]=true;
+				}
+			}
+			$scope.checkEmail=function(){
+				var flag=$('#txt_email');
+				flag.parent().removeClass('has-error');
+				if(flag.val()==''){
+					$scope.notice.email_n='邮箱不能为空';
+					flag.parent().addClass('has-error');
+					$scope.status[3]=false;
+				}
+				else if(!flag.val().match(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/)){
+					$scope.notice.email_n='邮箱格式错误';
+					flag.parent().addClass('has-error');
+					$scope.status[3]=false;
+				}
+				else{
+					$scope.status[3]=true;
+					$scope.notice.email_n='';
+				}
+			}
+			$scope.checkTEL=function(){
+				var flag=$('#phone');
+				flag.parent().removeClass('has-error');
+				if(flag.val()==''){
+					$scope.notice.phone_n='电话号码不能为空';
+					flag.parent().addClass('has-error');
+					$scope.status[4]=false;
+				}
+				else if(!flag.val().match(/[0-9]{1,}/)){
+					$scope.notice.phone_n='号码不能包含非数字';
+					flag.parent().addClass('has-error');
+					$scope.status[4]=false;
+				}
+				else{
+					$scope.status[4]=true;
+					$scope.notice.phone_n='';
+				}
+			}
+
+			
+		});
+		angular.bootstrap(document.getElementById("myWork"),['myW']);
+		
+	</script>
+
+	<div class="picArea" >
+		<div class="showArea" id="myP"  ng-controller="myCtrl">
+			<div class="choice2" id="prev1" style="left: 0%;">&lt;</div>
+			
+			<ul class="piclist ontouch mySwiper-wrap" id="picList">
+				<li class="box mySwiper-slide" ng-repeat="x in pics">
+
+				<a ng-href="{{x.href}}"><img src="{{x.src}}" alt="{{x.name}}" /></a>
+				
+				</li>
+			</ul>
+			
+			<ul class="choice1" >
+				<li class="point1 mySwiper-pagination-point" ng-repeat="x in pics"></li>
+			</ul>
+			<div class="choice2" id="next1" style="right:0%;">&gt;</div>
+			<script>
+			
+			var myP=angular.module("myP",[]);
+			myP.controller("myCtrl",function($scope){
+				$scope.pics=[
+						{id:1,name:"1",src:"imgs/1.jpg",href:"page_ex_item1.html"},
+						{id:2,name:"2",src:"imgs/2.jpg",href:"#"},
+						{id:3,name:"3",src:"imgs/3.jpg",href:"#"},
+						{id:4,name:"4",src:"imgs/4.jpg",href:"#"},
+						{id:5,name:"5",src:"imgs/5.jpg",href:"#"},
+						{id:6,name:"6",src:"imgs/6.jpg",href:"#"},
+						{id:7,name:"7",src:"imgs/7.jpg",href:"#"}]
+				});
+			angular.bootstrap(document.getElementById("myP"), ['myP']);
+
+			var node = document.getElementById('myP');
+			var option = {
+				direction:{
+					x:true,
+					y:false
+				},
+				loop:true,
+				pagination:'.choice1',
+				paginationSelectedClassName:'active',
+				prevButton:'#prev1',
+				nextButton:'#next1'
+			}
+			
+			BindSwiperNode(node,option);
+		
+		</script>
+
+		</div>
+		
+	</div>
+
+
+	<div class="itemArea">
+	<div id="myApp2" ng-controller="myCtrl" >
+		<a ng-repeat="x in examples" ng-href="{{x.href}}">
+		<div class="item"  ng-mouseover="show(x.id)" ng-mouseleave="hide(x.id)" style="background-image:url({{x.src}});">
+			<i class="itemBottom">
+				{{x.name}} 			
+			</i>
+		</div>
+		</a>
+		<script type="text/javascript">
+		var app=angular.module("myApp2",[]);
+		app.controller("myCtrl",function($scope){
+			$scope.examples=[
+			{id:1,name:"电脑",price:"$12",show:false,src:"pic/computer.png",href:"page_ex_item1.html"},
+			{id:2,name:"手机",price:"$12",show:false,src:"pic/cellphone.png",href:"page_ex_item1.html"},
+			{id:3,name:"PAD",price:"$12",show:false,src:"pic/pad.png",href:"page_ex_item1.html"},
+			{id:4,name:"耳机",price:"$12",show:false,src:"pic/earphone.png",href:"page_ex_item1.html"},
+			{id:5,name:"音箱",price:"$12",show:false,src:"pic/voicebox.png",href:"page_ex_item1.html"},
+			{id:6,name:"外设",price:"$12",show:false,src:"pic/peripheral.png",href:"page_ex_item1.html"}]
+			$scope.show=function(id){$scope.examples[id-1].show=true;}
+			$scope.hide=function(id){$scope.examples[id-1].show=false;}
+		});
+		angular.bootstrap(document.getElementById("myApp2"), ['myApp2']);
+		</script>
+	</div>
+	</div>
+
+
+	<div class="artArea">
+	<br>
+	<center>
+		<div class="art artRotateL" id="myApp3" ng-controller="myCtrl">
+		<div class="nail nail-top-left"></div>
+		<label><h3><strong>热销商品</strong></h3></label>
+		<table class="table  table-responsive " >
+			<thead>
+				<tr>
+					<th>排名</th>
+					<th>商品名称</th>
+					<th>价格</th>
+					<th>人气值</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in hots|orderBy:'-rate'"  class="tableHover">
+					<td>{{$index+1}}</td>
+					<td><a href="{{x.href}}">{{x.name}}</a></td>
+					<td>{{x.price}}</td>
+					<td><div class="progress1"><div class="progressbar1" ng-style="{width:'{{x.rate}}'}" ></div></div></td>
+				</tr>
+			</tbody>
+			<tfoot></tfoot>
+		</table>
+		</div>
+	
+	</center>
+	<script>
+		var myApp3=angular.module("myApp3",[]);
+		
+		myApp3.controller("myCtrl",function($scope){
+			$scope.hots=[
+		{rank:1,name:"ASFA笔记本电脑",price:"6000.00",rate:"80%",href:"#"},
+		{rank:2,name:"asff耳机",price:"100.00",rate:"78%",href:"#"},
+		{rank:3,name:"GG手机",price:"2000.00",rate:"75%",href:"#"},
+		{rank:4,name:"YYi音箱",price:"500.00",rate:"70%",href:"#"},
+		{rank:5,name:"JHG手柄",price:"99.00",rate:"62%",href:"#"}
+		];
+		});
+		angular.bootstrap(document.getElementById("myApp3"),['myApp3']);
+	</script>
+	<div class="art artRotateR" id="myApp4" ng-controller="my">
+
+		<div class="nail nail-top-right" ></div>
+		<!-- <div style="width: 400px;height: 300px;background: url(imgs/1.gif);background-size: 100% 100%;"></div> -->
+		<div class="fan">
+			<i class="wing1"></i>
+			<i class="wing2"></i>
+			<i class="wing3"></i>
+			<i class="wing4"></i>
+		</div>
+		<div class="table-discount">
+			<span class="center"><h3><strong>打折商品</strong></h3></span>
+			<table class="table table-condensed">
+				<thead>
+					<th>名称</th>
+					<th>现价</th>
+					<th>品牌</th>
+					<th>类型</th>
+					<th></th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="x in discounts" >						
+							<td>{{x.name}}</td>
+							<td>{{x.cur_price}}(<s>{{x.org_price}}</s>){{(x.cur_price/x.org_price)*100|number:0}}{{"%"}}</td>
+							<td>{{x.brand}}</td>
+							<td>{{x.type}}</td>
+							<td><a href="{{x.url}}" class="btn btn-default btn1">&gt;&gt;</a></td>						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script>
+			var myApp4=angular.module("myApp4",[]);
+			myApp4.controller("my",function($scope){
+				$scope.discounts=[
+					{name:"迅捷E564",cur_price:"6000.00",org_price:"7200.00",brand:"品牌1",type:"笔记本电脑",url:"http://www.baidu.com"},
+					{name:"非凡H9",cur_price:"2999.00",org_price:"3200.00",brand:"品牌2",type:"PAD",url:"http://www.baidu.com"},
+					{name:"起源TT547",cur_price:"9999.00",org_price:"11000.00",brand:"品牌1",type:"台式电脑",url:"http://www.baidu.com"},
+					{name:"战神T54",cur_price:"6999.99",org_price:"7500.00",brand:"品牌3",type:"笔记本电脑",url:"http://www.baidu.com"},
+					{name:"旋风6",cur_price:"199.99",org_price:"320.00",brand:"品牌4",type:"耳机",url:"http://www.baidu.com"},
+					{name:"轻音F7",cur_price:"99.99",org_price:"199.00",brand:"品牌5",type:"耳机",url:"http://www.baidu.com"},
+					{name:"起源T600",cur_price:"399.99",org_price:"450.00",brand:"品牌1",type:"音箱",url:"http://www.baidu.com"},
+				];
+			});
+			angular.bootstrap(document.getElementById("myApp4"),['myApp4']);
+		</script>
+	</div>
+	</div>
+
+	<div class="foot">
+		<div class="infoBox">
+			<div class="infoBoxI">
+				<div><label>合作网站：</label><a href="#">网站1</a><a href="#">网站2</a><a href="#">网站3</a></div>
+				<div><label>联系方式：</label><span>13710841189&nbsp;&nbsp;&nbsp;&nbsp;巫钊祥</span></div>
+				<div><label>版权信息：</label><span>1231</span></div>
+			</div>
+			<div class="infoBoxI">
+				<div>
+					<label>更多服务：</label>
+					<button class="btn btn-default">意见/建议</button>
+					<button class="btn btn-default">咨询客服</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	
+</body>
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/button.css">
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.rotate.min.js"></script>
+<script type="text/javascript" src="js/home.js"></script>
+</html>

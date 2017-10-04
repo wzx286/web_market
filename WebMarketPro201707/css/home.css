@@ -1,0 +1,553 @@
+*{
+	margin: 0 auto;
+	padding: 0;
+}
+
+
+
+html,body{
+	/*position: absolute;*/
+	width: 100%;
+	z-index: 50;
+	background: silver;
+}
+body{
+	background: silver;
+	/*text-align: center;*/
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+.searchBar{
+	position: fixed;
+	top: 0px;
+	min-width: 100%;
+	height: 80px;
+	background: #343131;
+	color: white;
+	z-index: 10;
+}
+
+.loginArea{	
+	float: right;
+	position: relative;
+	top: 20px;
+	width: 500px;
+	height: 60px;	
+	background: transparent;
+}
+
+.notice_info{
+	color: red;
+	font-size: 10px;
+}
+
+.check_hide{
+	visibility: hidden;
+}
+
+.radio_1{
+	position: absolute;
+	width: 50px;
+	height: 25px;
+	background: #232323;
+	border-radius: 6px;
+}
+
+.radio_1>.ra1{
+	position: absolute;
+	top:1px;
+	left: 1px;
+	width: 28px;
+	height: 23px;
+	border-radius: 5px;
+	-webkit-transition: all 0.1s linear;
+	-o-transition: all 0.1s linear;
+	transition: all 0.1s linear;
+}
+
+.ra1_origin{
+	background: silver;
+}
+
+.ra1_confirm{
+	background: #1FE774;
+}
+
+.radio_1+span{	
+	position: relative;
+	cursor: pointer;
+	left: 60px;
+}
+
+.picArea{
+	position: relative;
+	top:80px;
+	display: flex;
+	width: 100%;
+	height: 480px;
+	/*text-align: center;*/
+	background: black;
+}
+.picArea .showArea{	
+	position: relative;
+	display: block;
+	width: 900px;
+	height: 100%;
+	overflow: hidden;
+	padding: 0;
+	text-align: center;
+	padding: 0;
+	z-index: 3;
+	-webkit-transition: all 0.5s linear;
+	-o-transition: all 0.5s linear;
+	transition: all 0.5s linear;
+}
+.picArea .showArea .piclist{	
+	position: absolute;
+	left: 0px;
+	width: 6300px;
+	height: 480px;
+	margin: 0;
+	padding: 0px;
+	list-style: none;
+	background-size: 100% 100%;
+	z-index: 1;
+	-webkit-transform: translate3d(0px,0,0);
+	-ms-transform: translate3d(0px,0,0);
+	-o-transform: translate3d(0px,0,0);
+	transform: translate3d(0px,0,0);
+}
+.ontouch{
+	/*-webkit-transition: transform 0.1s ;*/
+	/*-o-transition: transform 0.1s ;*/
+	/*transition: transform 0.1s ;*/
+	/*-webkit-transition: transform 0.2s;
+	-o-transition: transform 0.2s;
+	transition: transform 0.2s;*/
+}
+.untouch{	
+	-webkit-transition: transform 0.5s;
+	-o-transition: transform 0.5s;
+	transition: transform 0.5s;
+}
+.picArea .showArea:hover .choice2 {
+		opacity: 0.5;
+}
+.picArea .showArea:hover .choice1 {
+		opacity: 0.6;
+}
+
+.picArea .showArea .box{
+	float: left;
+	display: block;	
+	width: 900px;
+	height: 480px;
+}
+.picArea .showArea .box img{
+	width: 100%;
+	height: 480px;
+	padding: 0;
+	margin: 0;
+}
+
+.choice1{
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+	list-style: none;
+	margin: 0;
+	background: #343131;
+	opacity: 0.5;
+	text-align: center;
+	z-index: 5;
+}
+
+.choice1 .point1{
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	background: gray;
+	border-radius: 10px;
+	text-align: center;
+	margin: 10px;
+	cursor: pointer;
+}
+
+.choice1 .active{
+	width: 12px;
+	height: 12px;
+	background: white;
+}
+
+
+.choice2{
+	position: absolute; 
+	top:30%;
+	width: 50px;
+	height: 100px;
+	background:#343131;
+	opacity: 0.1;
+	color: white;
+	line-height: 100px;
+	font-size: 40px;
+	z-index: 5;
+	text-align: center;
+	cursor:pointer;
+}
+
+.itemArea{
+	padding: 1px;
+	position: relative;
+	top: 80px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	height: auto;
+	min-width: 100%;
+	padding-bottom: 25px;
+	/*height: 900px;*/
+	background: silver;
+	overflow: auto;
+}
+
+#myApp2{
+	position: relative;
+	top:0px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	width: 90%;
+	height: auto;
+	background: silver;
+	z-index: 0;
+	text-align: center;
+}
+#myApp2 .item{
+	/*float: left;*/
+	/*display: table-cell;*/
+	position: relative;
+	width: 300px;
+	max-width: 100%;
+	height: 300px;	
+	background-size: 100% 100%;
+	color: white;
+	opacity: 1;
+	margin-top: 50px;
+	margin-left: 25px;
+	margin-right: 25px;
+	border: 1px solid transparent;
+	box-shadow: 1px 2px 10px 0px #888 inset;
+	-webkit-transition: all 0.3s linear;
+	-o-transition: all 0.3s linear;
+	transition: all 0.3s linear;
+	/*display: block;*/
+	overflow: hidden;
+}
+
+.item:HOVER{
+	opacity: 0.8;	
+	border-radius: 50px;
+}
+
+.itemBottom{
+	position: absolute;
+	width: 100%;
+	height: 60px;
+	display: block;
+	background: #A59595;
+	text-align: center;
+	line-height: 60px;
+	-webkit-transition: all 0.3s linear;
+	-o-transition: all 0.3s linear;
+	transition: all 0.3s linear;
+	opacity: 0;
+	bottom:0px;
+	font-size: 15pt;
+}
+.item:hover .itemBottom{
+	opacity: 0.9;
+	border-radius: 0 0 50px 50px;
+}
+.artArea{
+	position: relative;
+	top:80px;
+	width: 100%;
+	padding-bottom: 100px;
+	height: auto;
+	background: silver;
+	/*background: linear-gradient(to right bottom,white,#B37ED8);*/
+	border-top: 2px black dashed;
+	border-bottom: 2px black dashed;
+}
+
+.art{
+	max-width: 80%;
+	min-height: 400px;
+	background: #232323;
+	box-shadow: 2px 3px 10px black;
+	border: 1px solid #232323;
+	line-height: 50px;
+	margin: 100px 0 150px 0;
+	color: white;
+	-webkit-transition: all 0.1s linear;
+	-o-transition: all 0.1s linear;
+	transition: all 0.1s linear;	
+}
+
+.artRotateL{	
+	-webkit-transform-origin: 28px 25px;
+	-moz-transform-origin: 28px 25px;
+	-ms-transform-origin: 28px 25px;
+	-o-transform-origin: 28px 25px;
+	transform-origin: 28px 25px;
+	-webkit-transform: rotate(2deg);
+	-ms-transform: rotate(2deg);
+	-o-transform: rotate(2deg);
+	transform: rotate(2deg);
+}
+
+.artRotateR{
+	margin: 50px auto;
+	-webkit-transform-origin: 98% 25px;
+	-moz-transform-origin: 98% 25px;
+	-ms-transform-origin: 98% 25px;
+	-o-transform-origin: 98% 25px;
+	transform-origin: 98% 25px;
+	-webkit-transform: rotate(-2deg);
+	-ms-transform: rotate(-2deg);
+	-o-transform: rotate(-2deg);
+	transform: rotate(-2deg);
+}
+
+.art a{
+	color: white;
+}
+
+.art a:hover{
+	opacity: 0.8;
+}
+.tableHover:hover{
+	background: gray;
+}
+
+.art:hover{
+	-webkit-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	transform: rotate(0deg);
+	
+}
+
+.artArea .nail{	
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	border: 1px gray solid;
+	background:-webkit-radial-gradient(white, silver);
+	background:-o-radial-gradient(white, silver);
+	background:-ms-radial-gradient(white, silver);
+	background:-moz-radial-gradient(white, silver);
+	background:radial-gradient(white, silver);
+}
+
+.nail-top-left{
+	left: 18px;
+	top: 15px;
+}
+
+.nail-top-right{
+	right:18px;
+	top: 15px;
+}
+
+.art .progress1{	
+	float: left;
+	width: 200px;
+	height: 20px;
+	border-radius: 10px;
+	background: black;
+	line-height: 20px;
+}
+
+.art .progress1>.progressbar1{
+	position: relative;
+	left: 2px;
+	top: 2px;
+	float: left;
+	height: 16px;
+	border-radius: 8px;
+	background:  -webkit-radial-gradient(yellow, orange); 
+	background:  -moz-radial-gradient(yellow, orange);
+	background:  -ms-radial-gradient(yellow, orange);
+	background:  -o-radial-gradient(yellow, orange);
+	background:  radial-gradient(yellow, orange);
+}
+
+.art hr{
+	width: 80%;
+}
+.art a:hover{
+	color: white;
+}
+
+.fan{	
+	position: absolute;	
+	left: -50px;
+	top: -50px;
+	width: 200px;
+	height: 200px;
+	background: transparent;	
+}
+
+/*.fan:hover{
+	transform: rotate(1080deg);
+}*/
+
+.fan .wing1{
+	position: absolute;
+	left: 100px;
+	top: 0px;
+	width: 100px;
+	height: 100px;
+	border-top:50px solid transparent;
+	border-left: 50px solid #6184E8;
+	border-bottom:50px solid transparent;
+	opacity: 0.8; 
+	-webkit-transition: all 0.5s linear;
+	-o-transition: all 0.5s linear;
+	transition: all 0.5s linear;
+	-webkit-transform-origin: 0px 0px;
+	-moz-transform-origin: 0px 0px;
+	-ms-transform-origin: 0px 0px;
+	-o-transform-origin: 0px 0px;
+	transform-origin: 0px 0px;	
+}
+
+
+.fan .wing2{
+	position: absolute;
+	left: 100px;
+	top: 100px; 
+	width: 0px;
+	height: 0px;
+	border-left: 50px solid transparent;
+	border-top: 50px solid #6184E8;
+	border-right:50px solid transparent; 
+	opacity: 0.8; 
+	-webkit-transition: all 0.5s linear;
+	-o-transition: all 0.5s linear;
+	transition: all 0.5s linear;	
+}
+.fan .wing3{
+	position: absolute;
+	left: 50px;
+	top: 100px; 
+	width: 0px;
+	height: 0px;
+	border-top: 50px solid transparent;
+	border-right: 50px solid #6184E8;
+	border-bottom:50px solid transparent;
+	opacity: 0.8;  
+	-webkit-transition: all 0.5s linear;
+	-o-transition: all 0.5s linear;
+	transition: all 0.5s linear;
+	
+}
+.fan .wing4{
+	position: absolute;
+	left: 0px;
+	top: 50px; 
+	width: 0px;
+	height: 0px;
+	border-left: 50px solid transparent;
+	border-bottom: 50px solid #6184E8;
+	border-right:50px solid transparent; 
+	opacity: 0.8; 
+	-webkit-transition: all 0.5s linear;
+	-o-transition: all 0.5s linear;
+	transition: all 0.5s linear;
+	
+}
+
+.table-discount{
+	max-width: 70%;
+}
+
+.center{
+	text-align: center;
+}
+
+.table-discount table tbody tr:hover{
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+.table-discount .btn1{
+	line-height: 10px;
+	background: transparent;
+	color: white;
+}
+
+.table-discount .btn1:hover{
+	color: red;
+	background: white;
+}
+
+.foot{
+	position: relative;
+	top: 80px;
+	width: 100%;
+	height: 200px;
+	z-index: 2;
+	float: left;
+	background: #232323;
+
+}
+
+.foot .infoBox{	
+	position: relative;
+	top: 10px;
+	width:80%;
+	height: 180px;
+	border-left: 2px white solid; 
+	border-right: 2px white solid; 
+}
+
+.foot .infoBoxI{
+	float: left;	
+	position: relative;
+	top: 10%;
+	width: 40%;
+	height: 80%;
+	border: 2px white solid;
+	border-radius: 10px;
+	margin-left: 6.67%;
+	color: white;
+	padding: 30px;
+}
+
+.foot .infoBoxI a{
+	color: white;
+	margin-right: 10px;
+}
+
+.foot button{
+	background: transparent;
+	color: white;
+	font-weight:500;
+}
+.foot button:hover{
+	background: white;
+	color: black;
+}
+
+.bg-ex{
+	background: #bbb;
+	opacity: 0.95;
+}
+

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable:yes"/>
+	<title></title>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/wzxAjax.js"></script>
+</head>
+<body>
+	<div class="usrinfo">
+		<div class="usrtext">
+			<label>用户名：</label>
+			<span>56565</span>
+			<a href="#">退出登录</a>
+		</div>
+	</div>
+	<div class="navb">
+		<div class="sear">
+			<form>
+				<div class="sear-left"></div>
+				<div class="sear-content"><input class="" type="text" name="search" placeholder="搜索内容" /></div>
+				<div class="sear-right"><div class="magnify"></div></div>
+			</form>
+		</div>
+	</div>
+	<div class="w-content">
+		<div class="w-content1">
+			<div class="w-pic">
+				<div class="w-pic-area">				
+					<div class="w-pic-show"><img src="imgs/item1/1.jpg"  alt="图片1" /></div>
+					<div>
+						<div class="w-pic-pre w-pic-active"><img src="imgs/item1/1.jpg"  alt="图片1" /></div>
+						<div class="w-pic-pre"><img src="imgs/item1/2.jpg"  alt="图片2" /></div>
+						<div class="w-pic-pre"><img src="imgs/item1/3.jpg"  alt="图片3"/></div>
+					</div>
+				</div>
+			</div>
+			<div class="w-tet">
+					<div class="w-tet-area">
+						<div class="w-tet-head">XXX手机</div>
+						<div class="w-tet-body">
+							<div><span><b>价格：</b></span><span class="price1">&yen;1234.00</span><span>元</span></div>
+							<div><span><b>存货剩余：</b></span><span>56464</span><span>件</span></div>
+							<div><span><b>上架时间：</b></span><span>2017-9-12</span></div>
+							<div><span><b>月销量：</b></span><span>8888</span><span>件</span></div>
+						</div>
+						<div class="w-tet-foot">
+							<div class="btn btn-confirm btn-buy btn-shadow">立即购买</div>
+							<div class="btn btn-confirm button-primary btn-shadow">加入购物车</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		<div class="w-content2">
+			<div class="w-contain1">
+				<div class="select-bar1">
+					<div class="option-case w-active">商品详情</div>
+					<div class="option-case">销量记录</div>
+					<div class="option-case">买家评论</div>
+					<div class="bottom-bar"></div>
+				</div>
+				<div class="contain-p">
+					<div class="pane-p">
+						<div class="page">
+							<iframe class="page-contain" src="item1_part/item1_info.html" width="100%" frameborder="0"></iframe>			
+						</div>
+						<div class="page">
+							<iframe class="page-contain" src="item1_part/item1_sales_record.htm" width="100%" frameborder="0"></iframe> 
+						</div>
+						<div class="page">
+							<iframe class="page-contain" src="item1_part/item1_comment.htm" width="350" frameborder="0"></iframe> 
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="w-contain2">
+				<div class="w-contain2-head">
+					<div><h4>卖家信息</h4></div>
+					<div class="w-pic">
+						<img src="imgs/item1/pro/head3.jpg" alt="卖家头像">
+					</div>				
+				</div>
+				<div class="w-contain2-body">
+					<p><span>ABCD手机店</span></p>
+					<p><span>信誉等级：</span><span>5星</span></p>
+					<p><span>联系卖家：</span><button class=" btn btn-primary" style="font-size: 10px">点击联系</button></p>
+					<p><span>产品保障：</span>
+						<div class="tip-style1">7天包退</div>
+						<div class="tip-style1">1年内损坏保修</div>
+						<div class="tip-style1">7天包退</div>
+						<div class="tip-style1">1年内损坏保修</div>
+						<div class="tip-style1">1年内损坏保修</div>
+						
+					</p>
+				</div>
+				<div class="w-contain2-foot">
+					<div>收藏</div>
+					<div>分享</div>
+				</div>
+			</div>
+		</div>
+		<div class="w-content3">
+			<div class="w-else">
+				<div class="else-title">卖家的其他商品</div>
+				<div class="else-body">		
+					<div class="else-item">
+						<div><a href="#"><img src="imgs/2.jpg"/></a></div>
+						<div class="else-text">
+							<a href="#"><span class="i-text">XXXX13.3英寸笔记本电脑 银色(Core i5 处理器/8GB内存/128GB SSD闪存 MMGF2CH/A)</span></a>
+							<span class="j-text">&yen;6000.00</span>
+						</div>
+					</div>
+					<div class="else-item">
+						<div><a href="#"><img src="imgs/2.jpg"/></a></div>
+						<div class="else-text">
+							<a href="#"><span class="i-text">R720 15.6英寸游戏笔记本电脑(i7-7700HQ 8G 1T+128G SSD GTX1050Ti 4G IPS 黑)</span></a>
+							<span class="j-text">&yen;6000.00</span>
+						</div>
+					</div>	
+				</div>
+			</div>
+			<div class="w-recommend">
+				<div class="recm-title"><span>相关推荐</span><a href="#">更多&gt;&gt;</a></div>
+				<div class="recm-body">					
+					<script type="text/javascript">
+						var start=240,length=6;
+						var opt={
+							url:"/moreRecm",
+							type:"GET",
+							dataType:"json",
+							data:{start:start,length:length},
+							success:function(d){
+								var insert=document.createDocumentFragment();
+								var d=JSON.parse(d);
+								for(let i=0;i<length;i++){
+									var new_ = document.createElement("div");
+									new_.className="recm-item";
+									var _insert='<div><a href="'+d[i].address+'"><img src="'+d[i].picture+'"/></a></div><div class="recm-text"><a href="'+d[i].address+'"><span class="recm-i">'+d[i].name+'</span></a><div class="recm-j">&yen;'+d[i].price.toFixed(2)+'</div></div>';
+									// var _insert=`
+									// 			<div>
+									// 				<a href="`+d[i].address+`"><img src="`+d[i].picture+`"/></a>				
+									// 			</div>
+									// 			<div class="recm-text">
+									// 				<a href="`+d[i].address+`"><span class="recm-i">`+d[i].name+`</span></a>
+									// 				<div class="recm-j">&yen;`+d[i].price.toFixed(2)+`</div>
+									// 			</div>
+									// 		`;
+									new_.innerHTML=_insert;
+									insert.appendChild(new_);
+								}
+								document.getElementsByClassName('recm-body')[0].appendChild(insert);						
+							}
+						}
+						wzxAjax(opt);
+					</script>
+				</div>
+			</div>
+		</div>	
+	</div>
+	<div class="foot" style="margin-top: 30px;">
+		<div class="infoBox">
+			<div class="infoBoxI">
+				<div><label>合作网站：</label><a href="#">网站1</a><a href="#">网站2</a><a href="#">网站3</a></div>
+				<div><label>联系方式：</label><span>13710841189&nbsp;&nbsp;&nbsp;&nbsp;巫钊祥</span></div>
+				<div><label>版权信息：</label><span>1231</span></div>
+			</div>
+			<div class="infoBoxI">
+				<div>
+					<label>更多服务：</label>
+					<button class="">意见/建议</button>
+					<button class="">咨询客服</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+<link rel="stylesheet" href="css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="css/button.css"/>
+<link rel="stylesheet" type="text/css" href="css/item1.css"/>
+<!-- <link rel="stylesheet" type="text/css" href="css/home.css"> -->
+<script type="text/javascript" src="js/item1.js"></script>
+</html>

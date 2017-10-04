@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=0.5, user-scalable=0"/>
+	<title></title>
+	<script src="js/angular.min.js"></script>
+</head>
+<body ng-app="shop" ng-controller="myctrl">
+	
+	<div class="downArch" ng-click="MoveToBottom()">
+		&gt
+	</div>
+	<div class="shop_car_btn" data-toggle="modal" data-target="#myModal" ng-click="shop_car_view()">
+		查看购物车
+	</div>
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal"   tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header bg_ex1">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						购物车
+					</h4>
+				</div>
+				<div class="modal-body m-body bg_ex">
+					<form name="" method="">	
+						<ul class="shop_car" ng-repeat="x in shoppingcar|orderBy:'id'">
+							<li>
+								<a href="{{x.address}}"><img src="{{x.picture}}"></a>
+								<ul class="info_">
+									<li>
+										<button type="button" class="close" onclick="$(this).parent().parent().parent().slideUp()" ng-click="shop_car_delete(x.id)">
+											&times;
+										</button>
+									</li>
+									<li><h3>{{x.name}}</h3></li>
+									<li>价格：{{x.price|currency:"&yen"}}</li>
+									<li>加入时间：{{x.addTime|date:"yyyy-MM-dd HH:mm:ss"}}</li>
+								</ul>	
+							</li>					
+						</ul>
+					</form>
+				</div>
+				<div class="modal-footer bg_ex2">
+					<!-- <button type="button" class="btn btn-default" data-dismiss="modal">
+						关闭
+					</button> -->
+					<button type="button" class="btn button button-caution">
+						去 结 算
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
+
+	<div class="bhead">
+		<div class="searchArea">
+			<input id="search_content" placeholder="查找内容">
+			<button class="button  button-caution ser_btn">搜索</button>
+		</div>
+		<div class="selectBar">
+			<span>排序：</span>
+			<ul class="selectItem">
+				<li class="dropToggle">
+					<span>名称</span>
+					 <ul class="drop-items-hide">
+					 	<li>升序</li>
+					 	<li>降序</li>
+					 </ul>
+				</li>
+				<li class="dropToggle">
+					<span>上架时间</span>
+					 <ul class="drop-items-hide">
+					 	<li>从新到旧</li>
+					 	<li>从旧到新</li>
+					 </ul>
+				</li>
+				<li class="dropToggle">
+					 <span>价格</span>
+					 <ul class="drop-items-hide">
+					 	<li>从高到低</li>
+					 	<li>从低到高</li>
+					 </ul>
+				</li>
+			</ul>
+			
+		</div>
+	</div>
+
+
+
+	<div  id="shop1">
+		<div class="item_ex" ng-repeat="x in items|filter:{'type':'ex_computer'}|orderBy:order|limitTo:24*A_index" ng-if="$index>=24*(A_index-1)" style="opacity: 1;">
+			<div class="item_ex_preview">
+				<div class="item_ex_pic">
+					<a href="{{x.address}}"><img src="{{x.picture}}"/></a>
+				</div>
+			</div>
+			<div class="infoBar">
+				<span>{{x.name}}</span>
+			</div>
+			<div class="infoBar">
+				<span class="price">{{x.price|currency:"&yen"}}</span>
+			</div>
+			<button class="btn btn-default btn_ex" ng-click="shop_car_add(x)">加入购物车</button>	
+		</div>
+		
+		
+	</div>
+		
+	
+	<div class="pageNUM">
+		<div class="NUM_area" id="page_num">
+		</div>
+	</div>
+	
+	<div class="foot" style="margin-top: 30px;">
+		<div class="infoBox">
+			<div class="infoBoxI">
+				<div><label>合作网站：</label><a href="#">网站1</a><a href="#">网站2</a><a href="#">网站3</a></div>
+				<div><label>联系方式：</label><span>13710841189&nbsp;&nbsp;&nbsp;&nbsp;巫钊祥</span></div>
+				<div><label>版权信息：</label><span>1231</span></div>
+			</div>
+			<div class="infoBoxI">
+				<div>
+					<label>更多服务：</label>
+					<button class="btn btn-default">意见/建议</button>
+					<button class="btn btn-default">咨询客服</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<script>
+			
+			var shopi=angular.module("shop",[]);
+			// var xmlhttp;
+			// if(window.XMLHttpRequest){
+			// 	xmlhttp=new XMLHttpRequest();
+			// }else{
+			// 	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			// }
+			var items1;
+
+			shopi.controller("myctrl",function($scope,$http,$compile){
+				$scope.A_index=1;
+				$scope.order='';
+				$scope.MoveToBottom=function(){
+					DoJumpDown();
+				}
+				
+				$scope.JumpTo=function(index){
+						DoJumpUp();
+						$scope.A_index=index;
+						// for(var i=0;i<24;i++){							
+							// $('#shop1').html($compile('<div class="item_ex" style="opacity:1" ng-repeat="x in items|orderBy:order|limitTo:'+24*index+'" ng-if="$index>'+24*(index-1)+'"><div class="item_ex_preview"><div class="item_ex_pic"><a href="'+$scope.items[(index-1)*24+i].address+'"><img src="'+$scope.items[(index-1)*24+i].picture+'" width="100%" height="100%"></a></div></div><div class="infoBar"><span>'+$scope.items[(index-1)*24+i].name+'</span></div><div class="infoBar"><span class="price">'+$scope.items[(index-1)*24+i].price+'</span></div><button class="btn btn-default btn_ex" onclick=>加入购物车</button></div>')($scope));
+						// }
+						$('#page_num .NUM_box').eq(index%5==0?5:index%5).addClass('NUM_box_selected').removeClass('NUM_box_default').siblings().removeClass(' NUM_box_selected').addClass('NUM_box_default');
+						if(index!=1){
+							$('#page_num .NUM_box').eq(0).removeClass('NUM_box_disable').addClass('NUM_box_default');
+						}else{
+							$('#page_num .NUM_box').eq(0).removeClass('NUM_box_default').addClass('NUM_box_disable');
+						}
+
+						if(index==Math.ceil($scope.items.length/24)){
+							$('#page_num .NUM_box').eq(-1).removeClass('NUM_box_default').addClass('NUM_box_disable');
+						}
+						else{
+							$('#page_num .NUM_box').eq(-1).removeClass('NUM_box_disable').addClass('NUM_box_default');
+						}
+					};
+
+				$scope.prev=function(){
+					if($('#page_num .NUM_box').eq(0).hasClass('NUM_box_disable'))
+						return 0;
+					var inx=parseInt($('#page_num .NUM_box').eq(1).html());
+					if(inx==1)
+						$scope.JumpTo(1);
+					else{
+						$('#page_num').html('');
+						$('#page_num').width(350);
+						createPage($('#page_num').width(),inx-5);
+						$scope.JumpTo(inx-5);
+					}
+				}
+
+				$scope.next=function(){
+					if($('#page_num .NUM_box').eq(-1).hasClass('NUM_box_disable'))
+						return;
+					var inx=parseInt($('#page_num .NUM_box').eq(-2).html());
+					
+					var total_len=Math.ceil($scope.items.length/24);
+					
+					if(inx==total_len){
+						$scope.JumpTo(inx);
+					}
+					else{
+						
+						$('#page_num').html('');
+						$('#page_num').width(((total_len-inx)>5?7:total_len-inx+2)*50);
+						createPage($('#page_num').width(),inx+1);
+						$scope.JumpTo(inx+1);
+					}
+				}
+
+				var createPage=function(wid,firstNum){
+						var len=wid/50;
+						
+						for(let i=0,j=firstNum-1;i<len;i++,j++){
+							var cr;
+							if(i==0){
+								cr="<div class='NUM_box NUM_box_disable' ng-click='prev()'>&lt</div>";
+							}
+							else if(i==len-1){
+								cr="<div class='NUM_box NUM_box_default' ng-click='next()'>&gt</div>";
+							}
+							else{
+								cr="<div class='NUM_box NUM_box_default' ng-click='JumpTo("+j+");'>"+j+"</div>";
+								
+							}
+							$('#page_num').append($compile(cr)($scope));
+							//关键：要将cr编译$compile(cr)($scope)后append()或者html()才能使ng-click有效
+						}
+						$('#page_num .NUM_box').eq(1).removeClass('NUM_box_default').addClass('NUM_box_selected');
+						
+						
+					};
+
+				$http.get("/items?v="+Math.random()).then(function(response){
+					
+					$scope.items=response.data.items_ex1;
+					items1=$scope.items;
+					var l=Math.ceil($scope.items.length/24);
+					$('#page_num').css('width',(l>5?7:(l+2))*50+'px');
+					
+					
+					createPage($('#page_num').width(),1);
+					
+				});
+
+				var user="wzx564101384";
+				$scope.shop_car_view=function(){
+					$http.get("/shop-car?username1="+user+"&v="+Math.random()).then(function(response){
+						$scope.shoppingcar=response.data;
+						console.log(response.data);
+						// alert(JSON.stringify($scope.shoppingcar));
+					});
+				};
+				
+
+				$scope.shop_car_delete=function(id){
+					$http.get("/shop-car-delete?username1="+user+"&id="+id+"&v="+Math.random()).then(function(response){
+						var infoma=response.data;
+
+					});
+				}
+
+				$scope.shop_car_add=function(x){
+					var dat=new Date();										
+					var newItem={"id":x.id,"name":x.name,"price":x.price,"picture":x.picture,"address":x.address,"type":x.type,"addTime":dat};
+					var sendInfo=JSON.stringify(newItem).replace(/\#/g,"%23");//#号是特殊字符，不能在url中传递，需要进行转换
+					$http.get("/shop-car-add?username1="+user+"&newItem="+encodeURIComponent(sendInfo)+"&v="+Math.random()).then(function(response){
+						var infoma=response.data;
+						if(infoma=="add_success"){
+							alert("已加入购物车！");
+						}else if(infoma=="add_fail"){
+							alert("加入购物车失败！");
+						}	
+					});
+				}
+
+				// var arr;
+				// $.ajax({
+				//     url:"/items",
+				//     type:'get',
+				//     dataType:'json',
+				//     contentType:'application/json',
+				//     processData:false,
+				//     success:function(data){				
+				//     	alert(data.items_ex1[0].price)
+				//     	arr=data;
+				//     	$scope.items=arr.items_ex1;
+				//     	alert($scope.items[1].name);
+				//     	// document.getElementById('dis').innerHTML=data.responseText;
+				//     	// arr=eval("("+data.responseText+")");alert(JSON.parse(data.responseText));
+				//     	// arr1=JSON.parse(data.responseText);
+				//     	// alert(JSON.stringify(data));
+				//     	// arr=eval("("+JSON.stringify(data)+")");
+				//     },
+				//     error:function(){
+				//     }
+				// });				
+				// $scope.items=eval("("+responseText+")");
+					// $scope.items=[{price:123,name:"455"},{price:123,name:"455"},{price:123,name:"455"},{price:123,name:"455"}];
+				
+				// alert($scope.items[0].price);
+				// xmlhttp.open("GET","/items",true);
+				// xmlhttp.send();
+				// xmlhttp.onreadystatechange=function(){
+				// 	if(xmlhttp.readyState==4&&xmlhttp.status==200){
+				// 		var xmlres=xmlhttp.responseText;
+						
+						
+				// 		$scope.items=eval("("+xmlres+")").items_ex1;
+						
+						
+				// 		// $scope.items=JSON.parse(xmlres)["items_ex1"];
+				// 		// document.getElementById('dis').innerHTML=xmlres;
+					
+				// 	}
+				
+				// }
+				
+			
+			
+		});
+
+		</script>
+</body>
+	
+	<link rel="stylesheet" type="text/css" href="css/button.css">
+	<link rel="stylesheet" type="text/css" href="css/page_ex_item.css">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">	
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/windowScroll.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+</html>

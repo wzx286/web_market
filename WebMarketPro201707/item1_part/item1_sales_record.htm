@@ -1,0 +1,423 @@
+<style type="text/css">
+	*{
+		margin: 0;
+	}
+	html,body{
+		width: 100%;
+		background: #232323;
+	}
+	.sales-area{
+		width: 100%;
+	}
+	.sales-box{
+		width: 100%;
+		height: 150px;
+		line-height: 60px;
+		text-align: center;
+		display: block;
+		margin:1px auto;
+		position: relative;
+		background: #eee;
+		border-bottom: 1px #888 solid;
+	}
+	.sales-box .user-head{
+		width: 130px;
+		height: 130px;
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		border:5px #32323a solid;
+		border-radius: 5px;
+		display: block;
+		overflow: hidden;
+	}
+	.sales-box .user-info{
+		width: 160px;
+		height: 100%;
+		display: block;
+		position: absolute;
+		left: 150px;
+		/*border-left: 2px black solid;
+		border-right: 2px black solid;*/
+	}
+	.sales-box .user-info .user-name{
+		width: 100%;
+		height: 30px;
+		line-height: 30px;
+		position: absolute;
+		top: 35px;
+		text-align: center;
+		font-size: 12pt;
+	}
+	.sales-box .user-info .user-level{
+		width: 100%;
+		height: 30px;
+		line-height: 30px;
+		position: absolute;
+		top: 65px;
+		text-align: center;
+		font-size: 10pt;
+	}
+	.sales-box .item-info{
+		width: 160px;
+		height: 100%;
+		position: absolute;
+		left: 316px;
+	}
+	.sales-box .item-info .item-info-in{
+		width: 130px;
+		height: 80%;
+		font-size: 10pt;
+		display: inline-block;	
+		padding-top: 20px;
+		margin: 0;
+		text-align: left;
+	}
+	.sales-box .item-info .item-info-in h3,span{
+		line-height: 20px;
+		white-space:normal;
+	}
+	.sales-box .item-price{
+		width: 160px;
+		height: 100%;
+		position: absolute;
+		left: 476px;
+		text-align: center;
+	}
+	.sales-box .item-price p:first-child span{
+		line-height: 70px;
+		font-weight: 600;
+	}
+	.sales-box .item-price p:last-child span{
+		color: #FC560E;
+		font-size: 16pt;
+		font-weight: 600;
+	}
+	.sales-box .sales-date{
+		width: 200px;
+		height: 130px;
+		position: absolute;
+		/*left: 636px;*/
+		right: 30px;
+		text-align: center;
+	}
+	.sales-box .sales-date p:first-child span{
+		font-weight: 600;
+	}
+	.sales-box .sales-date p:last-child span{
+		font-size: 13pt;
+	}
+	.sales-page{
+		width: 60%;
+		height: 45px;
+		margin: 10px auto;	
+
+	}
+	.sales-page .page-num{
+		width: 16%;
+		height: 30px;
+		line-height: 30px;
+		border:1px gray solid;
+		background: linear-gradient(#777,#272822);
+		color: white;
+		font-size: 16pt;
+		text-align: center;
+		float: left;
+		cursor: pointer;
+		position: relative;
+		box-shadow: 0 2px 2px black;
+	}
+	.sales-page .page-num:active{
+		opacity: 0.7;
+		top: 1px;
+		box-shadow: 0 0px 2px black;
+	}
+	.sales-page .page-num:last-child:after{
+		clear: both;
+	}
+
+	@media screen and (max-width: 640px){
+		.sales-box{
+			width: 100%;
+			height: 100px;
+			line-height: 40px;
+			text-align: center;
+			display: block;
+			margin:1px auto;
+			position: relative;
+			background: #eee;
+			border-bottom: 1px #888 solid;
+		}
+		.sales-box .user-head{
+			width: 20%;
+			height: auto;
+			max-width: 78%;
+			position: absolute;
+			top: 11%;
+			bottom: 11%;
+			left: 3%;
+			border:5px #32323a solid;
+			border-radius: 5px;
+			display: block;
+			overflow: hidden;
+		}
+		.sales-box .user-info{
+			width: 20%;
+			height: 100%;
+			display: block;
+			position: absolute;
+			left: 26%;
+		}
+		.sales-box .user-info .user-name{
+			width: 100%;
+			height: 20px;
+			line-height: 20px;
+			position: absolute;
+			top: 25px;
+			text-align: center;
+			font-size: 12px;			
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.sales-box .user-info .user-level{
+			width: 100%;
+			height: 20px;
+			line-height: 20px;
+			position: absolute;
+			top: 45px;
+			text-align: center;
+			font-size: 10pt;
+		}
+		.sales-box .item-info{
+			width: 20%;
+			height: 100%;
+			position: absolute;
+			left: 46%;
+		}
+		.sales-box .item-info .item-info-in{
+			width: 100%;
+			height: calc(80% - 5px);
+			font-size: 10px;
+			display: inline-block;	
+			padding-top: 5px;
+			margin: 0;
+			text-align: left;
+			line-height: 5px;
+		}
+		.sales-box .item-info .item-info-in p{
+			line-height: 0px;
+		}
+		.sales-box .item-info .item-info-in h3,span{
+			display: block;
+			line-height: normal;
+			white-space:nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.sales-box .item-price{
+			position: absolute;
+			left: 68%;
+			top: 5%;
+			width: 30%;
+			height: auto;
+			max-height: 30%;
+			text-align: center;
+		}
+
+		.sales-box .item-price h3{
+			line-height: 20px;
+			font-size: 12px;
+		}
+		.sales-box .item-price p:first-child span{
+			line-height: 20px;
+			font-size: 12px;
+			/*font-weight: 600;*/
+		}
+		.sales-box .item-price p:last-child span{
+			color: #FC560E;
+			font-size: 16px;
+			font-weight: 600;
+		}
+		.sales-box .sales-date{
+			display: block;
+			width: 30%;
+			height: auto;
+			position: absolute;
+			left: 68%;
+			top: 40%;
+			text-align: center;
+		}
+		.sales-box .sales-date p:nth-child(n){
+			font-size: 10px;
+			line-height: 0px;
+			padding: 0;
+		}
+
+		
+		.sales-box .sales-date p:last-child span{
+			font-size: 10px;
+		}
+		.sales-page{
+			display: flex;
+			justify-content: space-around;
+			width: 80%;
+			height: 45px;
+			margin: 10px auto;	
+
+		}
+		.sales-page .page-num{
+			width: 15%;
+			height: 30px;
+			line-height: 30px;
+			border:1px gray solid;
+			background: linear-gradient(#777,#272822);
+			color: white;
+			font-size: 16pt;
+			text-align: center;
+			float: left;
+			cursor: pointer;
+			position: relative;
+			box-shadow: 0 2px 2px black;
+		}
+		.sales-page .page-num:active{
+			opacity: 0.7;
+			top: 1px;
+			box-shadow: 0 0px 2px black;
+		}
+		.sales-page .page-num:last-child:after{
+			clear: both;
+		}
+	}
+</style>
+<div class="sales-area">
+	<div class="sales-box">
+		<div class="user-head">
+			<img src="../imgs/item1/pro/head2.jpg" width="100%" height="100%">
+		</div>
+		<div class="user-info">
+			<div class="user-name">
+				<span>wuzhaoxiang</span>
+			</div>
+			<div class="user-level">
+				<span>Lv.5</span>
+			</div>
+		</div>
+		<div class="item-info">
+			<div class="item-info-in">
+				<p><h3>参数信息</h3></p>
+				<p><span>内存：尊享版8GB</span></p>
+				<p><span>容量：128GB</span></p>
+				<p><span>颜色：白色</span></p>
+				<p><span>数量：2</span></p>
+			</div>
+		</div>
+		<div class="item-price">
+			<p><span><h3>总价</h3></span></p>
+			<p><span>&yen5644.00</span></p>
+		</div>
+		<div class="sales-date">
+			<p><span><h5>成交时间</h5></span></p>
+			<p><span>2017-9-10 20:00</span></p>
+		</div>
+	</div>
+	<div class="sales-box">
+		<div class="user-head">
+			<img src="../imgs/item1/pro/head2.jpg" width="100%" height="100%">
+		</div>
+		<div class="user-info">
+			<div class="user-name">
+				<span>wuzhaoxiang</span>
+			</div>
+			<div class="user-level">
+				<span>Lv.5</span>
+			</div>
+		</div>
+		<div class="item-info">
+			<div class="item-info-in">
+				<p><h3>参数信息</h3></p>
+				<p><span>内存：尊享版8GB</span></p>
+				<p><span>容量：128GB</span></p>
+				<p><span>颜色：白色</span></p>
+				<p><span>数量：2</span></p>
+			</div>
+		</div>
+		<div class="item-price">
+			<p><span><h3>总价</h3></span></p>
+			<p><span>&yen5644.00</span></p>
+		</div>
+		<div class="sales-date">
+			<p><span><h5>成交时间</h5></span></p>
+			<p><span>2017-9-10 20:00</span></p>
+		</div>
+	</div>
+	<div class="sales-box">
+		<div class="user-head">
+			<img src="../imgs/item1/pro/head2.jpg" width="100%" height="100%">
+		</div>
+		<div class="user-info">
+			<div class="user-name">
+				<span>wuzhaoxiang</span>
+			</div>
+			<div class="user-level">
+				<span>Lv.5</span>
+			</div>
+		</div>
+		<div class="item-info">
+			<div class="item-info-in">
+				<p><h3>参数信息</h3></p>
+				<p><span>内存：尊享版8GB</span></p>
+				<p><span>容量：128GB</span></p>
+				<p><span>颜色：白色</span></p>
+				<p><span>数量：2</span></p>
+			</div>
+		</div>
+		<div class="item-price">
+			<p><span><h3>总价</h3></span></p>
+			<p><span>&yen5644.00</span></p>
+		</div>
+		<div class="sales-date">
+			<p><span><h5>成交时间</h5></span></p>
+			<p><span>2017-9-10 20:00</span></p>
+		</div>
+	</div>
+	<div class="sales-box">
+		<div class="user-head">
+			<img src="../imgs/item1/pro/head2.jpg" width="100%" height="100%">
+		</div>
+		<div class="user-info">
+			<div class="user-name">
+				<span>wuzhaoxiang</span>
+			</div>
+			<div class="user-level">
+				<span>Lv.5</span>
+			</div>
+		</div>
+		<div class="item-info">
+			<div class="item-info-in">
+				<p><h3>参数信息</h3></p>
+				<p><span>内存：尊享版8GB</span></p>
+				<p><span>容量：128GB</span></p>
+				<p><span>颜色：白色</span></p>
+				<p><span>数量：2</span></p>
+			</div>
+		</div>
+		<div class="item-price">
+			<p><span><h3>总价</h3></span></p>
+			<p><span>&yen5644.00</span></p>
+		</div>
+		<div class="sales-date">
+			<p><span><h5>成交时间</h5></span></p>
+			<p><span>2017-9-10 20:00</span></p>
+		</div>
+	</div>
+	<div class="sales-page">
+		<div class="page-num">&lt</div>
+		<div class="page-num">1</div>
+		<div class="page-num">2</div>
+		<div class="page-num">3</div>
+		<div class="page-num">4</div>
+		<div class="page-num">&gt</div>
+	</div>
+	
+
+</div>

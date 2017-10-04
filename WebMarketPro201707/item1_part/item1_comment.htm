@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=0.1, user-scalable:yes"/>
+	<title></title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding:0px;
+		}
+		html{
+			width: 100%;
+		}
+		body{
+			width: 100%;
+			background: linear-gradient(#fff,#1e1e1e);
+		}
+		.comment-head{
+			width: 100%;
+			height: 100px;
+			background: linear-gradient(#222,#1e1e1e);
+			position: fixed;
+			border-bottom: 1px gray solid;
+			-webkit-box-shadow: 0 2px 2px #232323;
+			box-shadow: 0 2px 2px #232323;	
+			z-index: 5;
+		}
+		.comment-head .comment-type{
+			width: 50%;
+			height: 100%;
+			float: left;
+		}
+		.comment-head .comment-type .comment-opt{
+			width: 20%;
+			height: 100%;
+			float: left;
+			position: relative;
+			text-align: center;
+		}
+		.comment-head .comment-type .comment-opt .opt-i{
+			width: 100%;
+			height:50px;
+			line-height: 50px;
+			font-size: 12pt;
+			color: red;
+			font-weight:400;
+		}
+		.comment-head .comment-type .comment-opt .opt-j{
+			width: 15px;
+			height: 15px;
+		}
+		.comment-head .comment-score{
+			height: 100%;
+			position: absolute;
+			right: 20px;
+			overflow: hidden;
+		}
+		.comment-head .comment-score .score-txt{
+			width: 100%;
+			height: 40px;
+			line-height: 40px;
+			font-size: 20pt;
+			color: white;
+			font-weight: 600;
+		}
+		.comment-head .comment-score .score-box{
+			height: 60px;
+			position: relative;
+		}
+		.comment-head .comment-score .score-box .cover1{
+			width: 30%;
+			height: 100%;
+			opacity: 1;
+			position: absolute;
+			right: 0;
+			background:linear-gradient(#202020,#1e1e1e); 
+			float: right;
+		}
+		
+		.star-pic{
+			width: 0px;
+			height: 0px;
+			position: relative;
+			top: 20px;
+			left: 0px;
+	  		display: block;
+			color: gold;
+			border-left: 25px solid transparent;
+			border-right: 25px solid transparent;
+			border-bottom: 18px solid gold;		
+			-webkit-transform: rotate(35deg);
+			-ms-transform: rotate(35deg);
+			-o-transform: rotate(35deg);
+			transform: rotate(35deg);
+			float: left;
+		}
+		.star-pic:before{
+			width: 0px;
+			height: 0px;
+			position: absolute;
+			top: 0px;
+			left: -25px;
+			display: block;
+			color: gold;
+			border-left: 25px solid transparent;
+			border-right: 25px solid transparent;
+			border-bottom: 18px solid gold;	
+			-webkit-transform: rotate(72deg);
+			-ms-transform: rotate(72deg);
+			-o-transform: rotate(72deg);
+			transform: rotate(72deg);	
+			content: ""; 
+		}
+		.star-pic:after{
+			width: 0px;
+			height: 0px;
+			position: absolute;
+			left: -25px;
+			top: 0px;
+			color: gold;
+			display: block;
+			border-left: 25px solid transparent;
+			border-right: 25px solid transparent;
+			border-bottom: 18px solid gold;		
+			-webkit-transform: rotate(-69deg);
+			-ms-transform: rotate(-69deg);
+			-o-transform: rotate(-69deg);
+			transform: rotate(-69deg);
+			content: ""; 
+		}
+		.comment-body{
+			width: 100%;
+			height: 480px;
+			position: absolute;
+			top:-200px;
+			overflow: auto;
+		}
+		.comment-box{
+			width: 100%;
+			height: 150px;
+			line-height: 60px;
+			text-align: center;
+			display: block;
+			margin:1px auto;
+			position: relative;
+			border-bottom: 1px #888 solid;
+			background: linear-gradient(#ddd,#ccc);
+			/*box-shadow: 0 2px 2px #232323;*/
+		}
+		.comment-box .user-head{
+			width: 130px;
+			height: 130px;
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			border:5px #32323a solid;
+			border-radius: 5px;
+			display: block;
+			overflow: hidden;
+		}
+		.comment-box .user-info{
+			width: 160px;
+			height: 100%;
+			display: block;
+			position: absolute;
+			left: 150px;
+			/*border-left: 2px black solid;
+			border-right: 2px black solid;*/
+		}
+		.comment-box .user-info .user-name{
+			width: 100%;
+			height: 30px;
+			line-height: 30px;
+			position: absolute;
+			top: 35px;
+			text-align: center;
+			font-size: 12pt;
+		}
+		.comment-box .user-info .user-level{
+			width: 100%;
+			height: 30px;
+			line-height: 30px;
+			position: absolute;
+			top: 65px;
+			text-align: center;
+			font-size: 10pt;
+		}
+		.comment-box .user-info .comment-date{
+			width: 100%;
+			height: 30px;
+			line-height: 30px;
+			position: absolute;
+			bottom: 10px;
+			text-align: center;
+			font-size: 8pt;
+		}
+		.comment-box .item-info{
+			width: 160px;
+			height: 100%;
+			position: absolute;
+			left: 316px;
+		}
+		.comment-box .item-info .item-info-in{
+			width: 130px;
+			height: 80%;
+			font-size: 10pt;
+			display: inline-block;	
+			padding-top: 20px;
+			text-align: left;
+		}
+		.comment-box .item-info .item-info-in h3,span{
+			line-height: 20px;
+			white-space:normal;
+		}
+		.comment-box .comment-area{
+			width: 400px;
+			height: 120px;
+			line-height: 15px;
+			background: #ddd;
+			padding:5px 10px 5px 10px ;
+			font-size: 12px;
+			position: absolute;
+			top:10px;
+			left: 478px;
+			display: inline-block;
+			text-align: left;
+			word-wrap: break-word;
+			overflow: auto;
+			text-overflow: ellipsis;
+			border:1px #ccc solid;
+		}
+		.comment-box .comment-area p{
+			text-indent: 25px;
+		}
+		.comment-body .comment-page{
+			width: 40%;
+			height: 50px;
+			line-height: 50px;
+			margin:10px auto;
+		}
+		.comment-body .comment-page-num{
+			width: 19%;
+			height: 35px;
+			line-height: 35px;
+			border:1px silver solid;
+			background: linear-gradient(#232323,#272822);
+			color: white;
+			font-size: 16pt;
+			text-align: center;
+			float: left;
+			cursor: pointer;
+			position: relative;
+			box-shadow: 0 2px 2px black;
+		}
+		.comment-body .comment-page-num:last-child:after{
+			clear: both;
+		}
+		.comment-body .comment-page-num:active{
+			opacity: 0.7;
+			box-shadow: 0 0px 2px black;
+			top:2px;
+		}
+
+		@media screen and (max-width: 640px){
+			.comment-head{
+				width: 100%;
+				height: auto;
+
+				background: linear-gradient(#222,#1e1e1e);
+				position: fixed;
+				border-bottom: 1px gray solid;
+				-webkit-box-shadow: 0 2px 2px #232323;
+				box-shadow: 0 2px 2px #232323;	
+				z-index: 5;
+			}
+			.comment-head .comment-type{
+				float: left;
+				max-width: 50%;
+				height: auto;
+			}
+			.comment-head .comment-type .comment-opt{
+				float: left;
+				position: relative;
+				left: 10px;
+				width: 20%;
+				height: auto;
+				text-align: center;
+			}
+			.comment-head .comment-type .comment-opt .opt-i{
+				width: 100%;
+				height: 50px;
+				line-height: 50px;
+				font-size: 12px;
+				color: red;
+				font-weight:400;
+			}
+			.comment-head .comment-type .comment-opt .opt-j{
+				width: 15px;
+				height: 15px;
+			}
+			.comment-head .comment-score{				
+				position: absolute;
+				right: 0px;
+				bottom: 0px;
+				max-width: 40%;
+				height: auto;
+				overflow: hidden;
+			}
+			.comment-head .comment-score .score-txt{
+				width: 100%;
+				height: 20px;
+				line-height: 20px;
+				font-size: 15px;
+				color: white;
+				font-weight: 600;
+			}
+			.comment-head .comment-score .score-box{
+				height: 30px;
+				position: relative;
+			}
+			.comment-head .comment-score .score-box .cover1{
+				width: 30%;
+				height: 30px;
+				opacity: 1;
+				position: absolute;
+				right: 0;
+				background:linear-gradient(#202020,#1e1e1e); 
+				float: right;
+			}
+			
+			.star-pic{
+				width: 0px;
+				height: 0px;
+				position: relative;
+				top: 10px;
+				left: 0px;
+		  		display: block;
+				color: gold;
+				border-left: 12px solid transparent;
+				border-right: 12px solid transparent;
+				border-bottom: 9px solid gold;		
+				-webkit-transform: rotate(35deg);
+				-ms-transform: rotate(35deg);
+				-o-transform: rotate(35deg);
+				transform: rotate(35deg);
+				float: left;
+			}
+			.star-pic:before{
+				width: 0px;
+				height: 0px;
+				position: absolute;
+				top: 0px;
+				left: -12px;
+				display: block;
+				color: gold;
+				border-left: 12px solid transparent;
+				border-right: 12px solid transparent;
+				border-bottom: 9px solid gold;	
+				-webkit-transform: rotate(72deg);
+				-ms-transform: rotate(72deg);
+				-o-transform: rotate(72deg);
+				transform: rotate(72deg);	
+				content: ""; 
+			}
+			.star-pic:after{
+				width: 0px;
+				height: 0px;
+				position: absolute;
+				left: -12px;
+				top: 0px;
+				color: gold;
+				display: block;
+				border-left: 12px solid transparent;
+				border-right: 12px solid transparent;
+				border-bottom: 9px solid gold;		
+				-webkit-transform: rotate(-69deg);
+				-ms-transform: rotate(-69deg);
+				-o-transform: rotate(-69deg);
+				transform: rotate(-69deg);
+				content: ""; 
+			}
+			.comment-body{
+				position: absolute;
+				top:70px;
+				width: 100%;
+				height: 100%;				
+				/*background: red;*/
+				overflow: auto;
+			}
+			.comment-box{
+				width: 100%;
+				height: 100px;
+				line-height: 40px;
+				text-align: center;
+				display: block;
+				margin:1px auto;
+				position: relative;
+				border-bottom: 1px #888 solid;
+				background: linear-gradient(#ddd,#ccc);
+				/*box-shadow: 0 2px 2px #232323;*/
+			}
+			.comment-box .user-head{
+				width: 20%;
+				height: auto;
+				max-height: 78%;
+				position: absolute;
+				top: 11%;
+				bottom: 11%;
+				left: 3%;
+				border:5px #eee solid;
+				border-radius: 5px;
+				display: block;
+				overflow: hidden;
+			}
+			.comment-box .user-head img{
+				width: 100%;
+				height: 100%;
+			}
+			.comment-box .user-info{
+				width: 20%;
+				height: 100%;
+				display: block;
+				position: absolute;
+				left: 26%;
+				/*border-left: 2px black solid;
+				border-right: 2px black solid;*/
+			}
+			.comment-box .user-info .user-name{
+				width: 100%;
+				height: 20px;
+				line-height: 20px;
+				position: absolute;
+				top: 15px;
+				text-align: center;
+				font-size: 12px;
+			}
+			.comment-box .user-info .user-level{
+				width: 100%;
+				height: 20px;
+				line-height: 20px;
+				position: absolute;
+				top: 40px;
+				text-align: center;
+				font-size: 10pt;
+			}
+			.comment-box .user-info .comment-date{
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+				position: absolute;
+				bottom: 10px;
+				text-align: center;
+				font-size: 8pt;
+			}
+			.comment-box .item-info{
+				position: absolute;
+				left: 48%;
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				width: 20%;
+				height: 100%;
+			}
+			.comment-box .item-info .item-info-in{
+				width: 100%;
+				height: 80%;
+				font-size: 10px;
+				display: inline-block;	
+				padding-top: 0px;
+				text-align: left;
+			}
+			.comment-box .item-info .item-info-in p{
+				line-height: 0%;
+			}			
+			.comment-box .item-info .item-info-in h3,span{
+				display: block;
+				width: 100%;				
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				overflow: hidden;
+			}
+			.comment-box .comment-area{
+				width: calc(30% - 10px);
+				height: calc(96% - 10px);
+				line-height: 15px;
+				background: #ddd;
+				padding:5px 5px;
+				font-size: 10px;
+				position: absolute;
+				top: 2%;
+				left: 68%;
+				display: inline-block;
+				text-align: left;
+				word-wrap: break-word;
+				overflow: auto;
+				text-overflow: ellipsis;
+				border:1px #ccc solid;
+			}
+			.comment-box .comment-area p{
+				text-indent: 25px;
+			}
+			.comment-body .comment-page{
+				display: flex;
+				justify-content: space-around;
+				width: 70%;
+				height: 40px;
+				line-height: 40px;
+				margin:10px auto;
+			}
+			.comment-body .comment-page-num{
+				/*width: 19%;*/
+				height: 25px;
+				line-height: 25px;
+				border:1px silver solid;
+				background: linear-gradient(#232323,#272822);
+				color: white;
+				font-size: 16px;
+				text-align: center;
+				float: left;
+				cursor: pointer;
+				position: relative;
+				box-shadow: 0 2px 2px black;
+			}
+			.comment-body .comment-page-num:last-child:after{
+				clear: both;
+			}
+			.comment-body .comment-page-num:active{
+				opacity: 0.7;
+				box-shadow: 0 0px 2px black;
+				top:2px;
+			}
+		}
+	</style>
+</head>
+<body>
+<div class="comment-head">
+	<div class="comment-type">
+		<div class="comment-opt">
+			<label class="opt-i" for="comm1">全部</label>
+			<p><input class="opt-j" type="radio" name="comm" id="comm1" checked/></p>
+		</div>
+		<div class="comment-opt">
+			<label class="opt-i" for="comm2">好</label>
+			<p><input class="opt-j" type="radio" name="comm" id="comm2"/></p>
+		</div>
+		<div class="comment-opt">
+			<label class="opt-i" for="comm3">中</label>
+			<p><input class="opt-j" type="radio" name="comm" id="comm3"/></p>
+		</div>
+		<div class="comment-opt">
+			<label class="opt-i" for="comm4">差</label>
+			<p><input class="opt-j" type="radio" name="comm" id="comm4"/></p>
+		</div>
+	</div>
+	<div class="comment-score">
+		<div class="score-txt">总体评价：</div>
+		<div class="score-box">
+			<div class="star-pic"></div>
+			<div class="star-pic"></div>
+			<div class="star-pic"></div>
+			<div class="star-pic"></div>
+			<div class="star-pic"></div>
+			<div class="cover1"></div>
+		</div>
+		
+	</div>
+</div>
+<div class="comment-body">
+	<div class="comment-box">
+		<div class="user-head">
+			<img src="../imgs/item1/pro/head1.jpg" width="100%" height="100%"/>
+		</div>
+		<div class="user-info">
+			<div class="user-name">
+				<span>wuzhaoxiang</span>
+			</div>
+			<div class="user-level">
+				<span>Lv.5</span>
+			</div>
+			<div class="comment-date">
+				<span>2017-9-20</span>
+			</div>	
+		</div>
+		<div class="item-info">
+			<div class="item-info-in">
+				<p><h3>参数信息</h3></p>
+				<p><span>内存：尊享版8GB</span></p>
+				<p><span>容量：128GB</span></p>
+				<p><span>颜色：白色</span></p>
+			</div>
+		</div>
+		<div class="comment-area" >
+			<p>貌似从上面两个读着都蛋疼的翻译中找到了一些区别：word-wrap强调的是是否允许单词内断句，而word-break强调的则是怎么样来进行单词内的断句。</p><p>说到这里，好像依然不是很明朗，好吧，表达能力差的孩纸真是伤不起啊，只能用些实例来补救了。</p><p>首先，何谓单词内断句？当然这里指的都是西文单词。貌似从上面两个读着都蛋疼的翻译中找到了一些区别：word-wrap 强调的是是否允许单词内断句，而word-break强调的则是怎么样来进行单词内的断句。</p><p>说到这里，好像依然不是很明朗，好吧，表达能力差的孩纸真是伤不起啊，只能用些实例来补救了。</p><p>首先，何谓单词内断句？当然这里指的都是西文单词。</p>
+		</div>
+	</div>
+	<div class="comment-box">
+		<div class="user-head">
+			<img src="../imgs/item1/pro/head1.jpg" width="100%" height="100%"/>
+		</div>
+		<div class="user-info">
+			<div class="user-name">
+				<span>wuzhaoxiang</span>
+			</div>
+			<div class="user-level">
+				<span>Lv.5</span>
+			</div>
+			<div class="comment-date">
+				<span>2017-9-20</span>
+			</div>	
+		</div>
+		<div class="item-info">
+			<div class="item-info-in">
+				<p><h3>参数信息</h3></p>
+				<p><span>内存：尊享版8GB</span></p>
+				<p><span>容量：128GB</span></p>
+				<p><span>颜色：白色</span></p>
+			</div>
+		</div>
+		<div class="comment-area" >
+			<p>貌似从上面两个读着都蛋疼的翻译中找到了一些区别：word-wrap强调的是是否允许单词内断句，而word-break强调的则是怎么样来进行单词内的断句。</p><p>说到这里，好像依然不是很明朗，好吧，表达能力差的孩纸真是伤不起啊，只能用些实例来补救了。</p><p>首先，何谓单词内断句？当然这里指的都是西文单词。貌似从上面两个读着都蛋疼的翻译中找到了一些区别：word-wrap 强调的是是否允许单词内断句，而word-break强调的则是怎么样来进行单词内的断句。</p><p>说到这里，好像依然不是很明朗，好吧，表达能力差的孩纸真是伤不起啊，只能用些实例来补救了。</p><p>首先，何谓单词内断句？当然这里指的都是西文单词。</p>
+		</div>
+	</div>
+	<div class="comment-box">
+		<div class="user-head">
+			<img src="../imgs/item1/pro/head1.jpg" width="100%" height="100%"/>
+		</div>
+		<div class="user-info">
+			<div class="user-name">
+				<span>wuzhaoxiang</span>
+			</div>
+			<div class="user-level">
+				<span>Lv.5</span>
+			</div>
+			<div class="comment-date">
+				<span>2017-9-20</span>
+			</div>	
+		</div>
+		<div class="item-info">
+			<div class="item-info-in">
+				<p><h3>参数信息</h3></p>
+				<p><span>内存：尊享版8GB</span></p>
+				<p><span>容量：128GB</span></p>
+				<p><span>颜色：白色</span></p>
+			</div>
+		</div>
+		<div class="comment-area" >
+			<p>貌似从上面两个读着都蛋疼的翻译中找到了一些区别：word-wrap强调的是是否允许单词内断句，而word-break强调的则是怎么样来进行单词内的断句。</p><p>说到这里，好像依然不是很明朗，好吧，表达能力差的孩纸真是伤不起啊，只能用些实例来补救了。</p><p>首先，何谓单词内断句？当然这里指的都是西文单词。貌似从上面两个读着都蛋疼的翻译中找到了一些区别：word-wrap 强调的是是否允许单词内断句，而word-break强调的则是怎么样来进行单词内的断句。</p><p>说到这里，好像依然不是很明朗，好吧，表达能力差的孩纸真是伤不起啊，只能用些实例来补救了。</p><p>首先，何谓单词内断句？当然这里指的都是西文单词。</p>
+		</div>
+	</div>
+	<div class="comment-box">
+		<div class="user-head">
+			<img src="../imgs/item1/pro/head1.jpg" width="100%" height="100%"/>
+		</div>
+		<div class="user-info">
+			<div class="user-name">
+				<span>wuzhaoxiang</span>
+			</div>
+			<div class="user-level">
+				<span>Lv.5</span>
+			</div>
+			<div class="comment-date">
+				<span>2017-9-20</span>
+			</div>	
+		</div>
+		<div class="item-info">
+			<div class="item-info-in">
+				<p><h3>参数信息</h3></p>
+				<p><span>内存：尊享版8GB</span></p>
+				<p><span>容量：128GB</span></p>
+				<p><span>颜色：白色</span></p>
+			</div>
+		</div>
+		<div class="comment-area" >
+			<p>貌似从上面两个读着都蛋疼的翻译中找到了一些区别：word-wrap强调的是是否允许单词内断句，而word-break强调的则是怎么样来进行单词内的断句。</p><p>说到这里，好像依然不是很明朗，好吧，表达能力差的孩纸真是伤不起啊，只能用些实例来补救了。</p><p>首先，何谓单词内断句？当然这里指的都是西文单词。貌似从上面两个读着都蛋疼的翻译中找到了一些区别：word-wrap 强调的是是否允许单词内断句，而word-break强调的则是怎么样来进行单词内的断句。</p><p>说到这里，好像依然不是很明朗，好吧，表达能力差的孩纸真是伤不起啊，只能用些实例来补救了。</p><p>首先，何谓单词内断句？当然这里指的都是西文单词。</p>
+		</div>
+	</div>
+	<div class="comment-box">
+		<div class="user-head">
+			<img src="../imgs/item1/pro/head1.jpg" width="100%" height="100%"/>
+		</div>
+		<div class="user-info">
+			<div class="user-name">
+				<span>wuzhaoxiang</span>
+			</div>
+			<div class="user-level">
+				<span>Lv.5</span>
+			</div>
+			<div class="comment-date">
+				<span>2017-9-20</span>
+			</div>	
+		</div>
+		<div class="item-info">
+			<div class="item-info-in">
+				<p><h3>参数信息</h3></p>
+				<p><span>内存：尊享版8GB</span></p>
+				<p><span>容量：128GB</span></p>
+				<p><span>颜色：白色</span></p>
+			</div>
+		</div>
+		<div class="comment-area" >
+			<p>貌似从上面两个读着都蛋疼的翻译中找到了一些区别：word-wrap强调的是是否允许单词内断句，而word-break强调的则是怎么样来进行单词内的断句。</p><p>说到这里，好像依然不是很明朗，好吧，表达能力差的孩纸真是伤不起啊，只能用些实例来补救了。</p><p>首先，何谓单词内断句？当然这里指的都是西文单词。貌似从上面两个读着都蛋疼的翻译中找到了一些区别：word-wrap 强调的是是否允许单词内断句，而word-break强调的则是怎么样来进行单词内的断句。</p><p>说到这里，好像依然不是很明朗，好吧，表达能力差的孩纸真是伤不起啊，只能用些实例来补救了。</p><p>首先，何谓单词内断句？当然这里指的都是西文单词。</p>
+		</div>
+	</div>
+	
+	
+	
+	
+	<div class="comment-page">
+		<div class="comment-page-num">1</div>
+		<div class="comment-page-num">2</div>
+		<div class="comment-page-num">3</div>
+		<div class="comment-page-num">4</div>
+		<div class="comment-page-num">5</div>
+	</div>
+</div>
+</body>
+</html>

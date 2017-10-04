@@ -1,0 +1,67 @@
+<style type="text/css">
+	*{margin: 0}
+	.lv-msg{
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+	.lv-msg-t{
+		width: 80%;
+		height: 60px;
+		line-height: 60px;
+		position: relative;
+		top:20px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	.msg-area{
+		width: 80%;
+		position: relative;
+		top: 20px;
+		margin: 0 auto;
+	}
+	.msg-title{
+		width: 80%;
+		height: 50px;
+		margin:0 auto;
+	}
+	.msg-title label{
+		width: 10%;
+		display: inline-block;
+	}
+	.msg-title input{
+		width: 88%;
+		font-size: 12pt;
+	}
+	.msg-content{
+		width: 80%;
+		height: 500px;
+		margin: 0 auto;
+	}
+	.msg-content label{
+		width: 10%;
+		display: inline-block;
+		vertical-align: top;
+	}
+	.msg-content textarea{
+		width: 88%;
+		height: 300px;
+	}
+</style>
+<div class="lv-msg">
+	<div class="lv-msg-t">
+		<h1>留言板</h1>
+	</div>
+	<div class="msg-area">
+		<form>
+			<div class="msg-title">
+				<label for="msgtitle">标题：</label>
+				<input type="text" name="" id="msgtitle">
+			</div>
+			<div class="msg-content">
+				<label for="msgcontent">内容：</label>
+				<textarea name="" id="msgcontent" ></textarea>
+			</div>
+		</form>
+	</div>
+</div>
